@@ -2,6 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Routing
     const views = document.querySelectorAll('.view');
 
+    function renderWelcome() {
+        const welcomeBanner = document.getElementById('welcome-banner');
+        const welcomeName = document.getElementById('welcome-name');
+        if (!welcomeBanner || !welcomeName) return;
+        const user = JSON.parse(localStorage.getItem('hb_user') || 'null');
+        if (!user) {
+            welcomeBanner.classList.add('hidden');
+            return;
+        }
+        welcomeName.textContent = user.email.split('@')[0];
+        welcomeBanner.classList.remove('hidden');
+    }
+
     function showView(id) {
         const protectedViews = ['checkout', 'orders'];
         if (protectedViews.includes(id) && !isLogged()) {
@@ -13,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('active');
         if (id === 'checkout') renderCheckoutGuard();
         if (id === 'orders') renderOrders();
+        renderWelcome();
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -395,6 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveCart();
             updateCount();
             location.hash = 'home';
+            renderWelcome();
             toast(`Welcome back, ${email.value}!`);
         });
         showPass.addEventListener('change', (e) => {
@@ -428,6 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveCart();
             updateCount();
             location.hash = 'home';
+            renderWelcome();
             toast(`Welcome, ${email.value}! Your account is ready.`);
         });
     }
