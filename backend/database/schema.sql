@@ -1,0 +1,2 @@
+-- Database schema placeholders for the Hair by Sentle backend.
+-- TODO: add CREATE TABLE statements for users, orders, order_items, products, and other database objects.
