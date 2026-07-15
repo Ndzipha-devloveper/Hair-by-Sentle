@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const views = document.querySelectorAll('.view');
 
     function showView(id) {
+        const protectedViews = ['checkout', 'orders'];
+        if (protectedViews.includes(id) && !isLogged()) {
+            location.hash = 'login';
+            return;
+        }
         views.forEach(v => v.classList.remove('active'));
         const el = document.getElementById(id) || document.getElementById('home');
         el.classList.add('active');
@@ -372,6 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const showPass = document.getElementById('show-pass');
         const dollFace = document.getElementById('doll-face');
         const loginError = document.getElementById('login-error');
+        const showCreateAccount = document.getElementById('show-create-account');
+        if (showCreateAccount) {
+            showCreateAccount.addEventListener('click', () => {
+                location.hash = 'create-account';
+            });
+        }
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             loginError.textContent = '';
@@ -380,12 +391,44 @@ document.addEventListener('DOMContentLoaded', () => {
             setUser({
                 email: email.value
             });
+            cart.length = 0;
+            saveCart();
+            updateCount();
             location.hash = 'home';
             toast(`Welcome back, ${email.value}!`);
         });
         showPass.addEventListener('change', (e) => {
             password.type = e.target.checked ? 'text' : 'password';
             dollFace.classList.toggle('cover', !e.target.checked);
+        });
+    }
+
+    const createForm = document.getElementById('create-account-form');
+    if (createForm) {
+        const email = document.getElementById('create-email');
+        const password = document.getElementById('create-password');
+        const confirmPassword = document.getElementById('create-password-confirm');
+        const createError = document.getElementById('create-error');
+        const showLogin = document.getElementById('show-login');
+        if (showLogin) {
+            showLogin.addEventListener('click', () => {
+                location.hash = 'login';
+            });
+        }
+        createForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            createError.textContent = '';
+            if (password.value.length < 6) return createError.textContent = 'Password must be at least 6 characters.';
+            if (password.value !== confirmPassword.value) return createError.textContent = 'Passwords do not match.';
+            if (!email.checkValidity()) return createError.textContent = 'Please enter a valid email address.';
+            setUser({
+                email: email.value
+            });
+            cart.length = 0;
+            saveCart();
+            updateCount();
+            location.hash = 'home';
+            toast(`Welcome, ${email.value}! Your account is ready.`);
         });
     }
 
