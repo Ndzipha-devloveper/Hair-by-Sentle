@@ -17,6 +17,7 @@
 
 <body>
 
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="marquee-wrap">
         <div class="container">
             <div class="marquee">
@@ -41,7 +42,8 @@
             <div class="brand">Hair by <em>Sentle</em></div>
             <nav class="nav-links">
                 <a href="#home">Home</a>
-                <a href="#shop">Shop</a>
+                <a href="#shop">Shop All Products</a>
+                <a href="#gallery">Gallery</a>
                 <a href="#install">Installations</a>
                 <a href="#about">About</a>
                 <a href="#faq">FAQ</a>
@@ -65,7 +67,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main id="main" class="container">
 
         <section id="home" class="view active">
             <div class="hero">
@@ -90,10 +92,30 @@
 
             <div class="space"></div>
             <div class="slideshow" id="slideshow">
-                <img class="active" src="assets/Images/Isentle.jpg" alt="Style 1">
-                <img src="assets/Images/Isentle2.jpg" alt="Style 2">
-                <img src="assets/Images/isentle3.jpg" alt="Style 3">
-                <img src="assets/Images/isentle 4.jpg" alt="Style 4">
+                <!-- Image slides to show product photos first -->
+                <img src="assets/Images/1.jpg" alt="Weave sample 1">
+                <img src="assets/Images/2.jpg" alt="Weave sample 2">
+                <img src="assets/Images/3.jpg" alt="Weave sample 3">
+                <!-- Video slides with poster fallbacks -->
+                <video class="active" muted playsinline preload="metadata" poster="assets/Images/1.jpg" src="assets/videos/CapCut_sama28_fyp_ponytail_tutorials_0613144360.mp4"></video>
+                <video muted playsinline preload="metadata" poster="assets/Images/Salee.jpg" src="assets/videos/Salonhumanhairblendwigscapetown.mp4"></video>
+                <video muted playsinline preload="metadata" poster="assets/Images/saleee.jpg" src="assets/videos/tiksav_video.mp4"></video>
+                <video muted playsinline preload="metadata" poster="assets/Images/Isentle.jpg" src="assets/videos/tiksav_video(2).mp4"></video>
+
+                <!-- Slideshow controls -->
+                <button class="slideshow-prev" aria-label="Previous slide">‹</button>
+                <button class="slideshow-next" aria-label="Next slide">›</button>
+                <div class="slideshow-dots" aria-hidden="false" role="tablist"></div>
+                <!-- Specials card: displays only on image slides -->
+                <div class="slide-card" id="slide-card" aria-hidden="true">
+                    <div class="slide-card-tag">SPECIALS</div>
+                    <h3 class="slide-card-title">Specials • Black Friday • Student Deals</h3>
+                    <p class="slide-card-text">Exclusive offers live now — limited time only.</p>
+                    <div class="slide-card-ctas">
+                        <a class="btn" href="#shop">See Deals</a>
+                        <a class="btn secondary" href="#faq">FAQ</a>
+                    </div>
+                </div>
             </div>
 
                 <div class="slide-caption" id="slide-caption">
@@ -107,61 +129,123 @@
                 </div>
 
             <section class="space"></section>
-            <section id="featured-products">
-                <h2>Featured Products</h2>
-                <div class="grid featured-grid" id="products">
+            <section class="why-choose">
+                <h2>Why Choose Hair by Sentle</h2>
+                <div class="grid why-grid">
                     <div class="card">
-                        <img src="assets/Images/8.jpg" alt="Brazilian Straight">
                         <div class="card-body">
-                            <h3>Brazilian Straight 18"</h3>
-                            <div class="price">R1,899</div>
-                            <button class="btn add" data-id="lux">Add to cart</button>
+                            <h3>Premium Human Hair</h3>
+                            <p>Natural textures and long-lasting bundles that look and feel premium.</p>
                         </div>
-                        <div class="truck-overlay"></div>
                     </div>
-
                     <div class="card">
-                        <img src="assets/Images/Salee.jpg" alt="Body Wave">
                         <div class="card-body">
-                            <h3>Body Wave 20"</h3>
-                            <div class="price">R2,299</div>
-                            <button class="btn add" data-id="brz">Add to cart</button>
+                            <h3>Local Installations</h3>
+                            <p>Trusted George-based styling with careful fitting and finish.</p>
                         </div>
-                        <div class="truck-overlay"></div>
                     </div>
-
                     <div class="card">
-                        <img src="assets/Images/saleee.jpg" alt="Kinky Curly">
                         <div class="card-body">
-                            <h3>Kinky Curly 16"</h3>
-                            <div class="price">R1,749</div>
-                            <button class="btn add" data-id="inch">Add to cart</button>
+                            <h3>Fast Nationwide Delivery</h3>
+                            <p>Secure shipping across South Africa, straight to your door.</p>
                         </div>
-                        <div class="truck-overlay"></div>
-                    </div>
-
-                    <div class="card">
-                        <img src="assets/Images/saLE.jpg" alt="Silk Hair Bonnet">
-                        <div class="card-body">
-                            <h3>Silk Hair Bonnet</h3>
-                            <div class="price">R149</div>
-                            <button class="btn add" data-id="bon">Add to cart</button>
-                        </div>
-                        <div class="truck-overlay"></div>
                     </div>
                 </div>
+            </section>
+            <section class="space"></section>
+            <section id="featured-products">
+                <h2>Featured Products</h2>
+                    <div class="grid featured-grid" id="products">
+                        <div class="card">
+                            <div class="badge-new">New</div>
+                            <img loading="lazy" src="assets/Images/8.jpg" alt="Brazilian Straight">
+                            <div class="card-body">
+                                <h3>Brazilian Straight 18"</h3>
+                                <div class="price">R1,899</div>
+                                <div class="card-actions"><button class="btn add" data-id="lux">Add to cart</button></div>
+                            </div>
+                            <div class="truck-overlay"></div>
+                        </div>
+
+                        <div class="card">
+                            <img loading="lazy" src="assets/Images/Salee.jpg" alt="Body Wave">
+                            <div class="card-body">
+                                <h3>Body Wave 20"</h3>
+                                <div class="price">R2,299</div>
+                                <div class="card-actions"><button class="btn add" data-id="brz">Add to cart</button></div>
+                            </div>
+                            <div class="truck-overlay"></div>
+                        </div>
+
+                        <div class="card">
+                            <img loading="lazy" src="assets/Images/saleee.jpg" alt="Kinky Curly">
+                            <div class="card-body">
+                                <h3>Kinky Curly 16"</h3>
+                                <div class="price">R1,749</div>
+                                <div class="card-actions"><button class="btn add" data-id="inch">Add to cart</button></div>
+                            </div>
+                            <div class="truck-overlay"></div>
+                        </div>
+
+                        <div class="card">
+                            <div class="badge-new">New</div>
+                            <img loading="lazy" src="assets/Images/saLE.jpg" alt="Silk Hair Bonnet">
+                            <div class="card-body">
+                                <h3>Silk Hair Bonnet</h3>
+                                <div class="price">R149</div>
+                                <div class="card-actions"><button class="btn add" data-id="bon">Add to cart</button></div>
+                            </div>
+                            <div class="truck-overlay"></div>
+                        </div>
+                    </div>
             </section>
         </section>
 
         <section id="shop" class="view">
             <h2>Shop All Products</h2>
-            <div id="products" class="grid"></div>
+            <div id="shop-toolbar" class="shop-toolbar">
+                <button class="pill btn small active" data-filter="all">All</button>
+                <button class="pill btn small" data-filter="weaves">Weaves</button>
+                <button class="pill btn small" data-filter="clothing">Clothing</button>
+                <button class="pill btn small" data-filter="installations">Installations</button>
+                <button class="pill btn small" data-filter="skincare">Skincare</button>
+                <button class="pill btn small" data-filter="new">New Arrivals</button>
+                <label for="shop-sort" class="visually-hidden">Sort products</label>
+                <select id="shop-sort" aria-label="Sort products" class="pill">
+                    <option value="default">Sort</option>
+                    <option value="price-asc">Price: Low → High</option>
+                    <option value="price-desc">Price: High → Low</option>
+                    <option value="new">Newest</option>
+                </select>
+            </div>
+            <div id="shop-products" class="grid"></div>
+            <div id="shop-pagination" class="pagination" aria-label="Shop pagination"></div>
+        </section>
+
+        <section id="gallery" class="view">
+            <h2>Gallery</h2>
+            <div class="grid gallery-grid">
+                <div class="card"><img src="assets/Images/Isentle.jpg" alt="Gallery image"></div>
+                <div class="card"><img src="assets/Images/Isentle2.jpg" alt="Gallery image"></div>
+                <div class="card"><img src="assets/Images/isentle3.jpg" alt="Gallery image"></div>
+                <div class="card"><img src="assets/Images/isentle 4.jpg" alt="Gallery image"></div>
+            </div>
         </section>
 
         <section id="install" class="view">
             <h2>Hair / Weave Installations — George</h2>
             <div class="summary">
                 <p>Professional installations for closures, frontals, and wig customization in George. Pricing shared on consultation based on hair type and style.</p>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <video controls playsinline src="assets/videos/CapCut_sama28_fyp_ponytail_tutorials_0613144360.mp4"></video>
+                        <h3>Ponytail Tutorial</h3>
+                    </div>
+                    <div class="video-card">
+                        <video controls playsinline src="assets/videos/Salonhumanhairblendwigscapetown.mp4"></video>
+                        <h3>Installation Demo</h3>
+                    </div>
+                </div>
                 <div class="space"></div>
                 <form id="install-form">
                     <div class="field">
@@ -393,12 +477,12 @@
                             <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8A5.2 5.2 0 1 0 17.2 13 5.2 5.2 0 0 0 12 7.8zm0 8.6A3.4 3.4 0 1 1 15.4 13 3.4 3.4 0 0 1 12 16.4zm6-9.9a1.2 1.2 0 1 0-1.2-1.2 1.2 1.2 0 0 0 1.2 1.2z" />
                         </svg>
                     </a>
-                    <a href="#" aria-label="TikTok">
+                    <a href="https://www.tiktok.com/@sentlemtalaliso5" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
                             <path d="M16.7 2h2.2c.2 2 1.4 3.7 3.1 4.6v2.3c-1.2-.1-2.4-.5-3.5-1.2v7.7a6.6 6.6 0 1 1-6.6-6.6c.3 0 .7 0 1 .1v2.4a4.2 4.2 0 1 0 3.2 4.1V2z" />
                         </svg>
                     </a>
-                    <a href="#" aria-label="Facebook">
+                    <a href="https://www.facebook.com/sentle.wodumo.5/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
                             <path d="M22 12.06C22 6.48 17.52 2 11.94 2S2 6.48 2 12.06c0 5.01 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.93 8.44-9.94z" />
                         </svg>

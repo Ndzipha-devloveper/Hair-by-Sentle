@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Slideshow
     const slideshowContainer = document.getElementById('slideshow');
     if (slideshowContainer) {
-        const slides = [...slideshowContainer.querySelectorAll('img')];
+        const slides = [...slideshowContainer.querySelectorAll('img,video')];
         const capTag = document.getElementById('cap-tag');
         const capTitle = document.getElementById('cap-title');
         const capText = document.getElementById('cap-text');
@@ -78,12 +78,54 @@ document.addEventListener('DOMContentLoaded', () => {
             sText: 'FAQ'
         }];
         let i = 0;
+        let slideshowTimer = null;
+        let currentVideoElement = null;
+        let currentVideoListener = null;
 
         function setActive(n) {
-            slides.forEach(s => s.classList.remove('active'));
+            slides.forEach(s => {
+                s.classList.remove('active');
+                if (s.tagName === 'VIDEO') {
+                    try { s.pause(); s.currentTime = 0; } catch (e) {}
+                }
+            });
             i = (n + slides.length) % slides.length;
-            slides[i].classList.add('active');
-            const c = CAPS[i] || CAPS[0];
+            const active = slides[i];
+            active.classList.add('active');
+            // Show or hide the Specials slide-card depending on slide type
+            try {
+                const slideCard = document.getElementById('slide-card');
+                if (slideCard) {
+                    if (active.tagName === 'IMG') {
+                        slideCard.classList.add('visible');
+                        slideCard.setAttribute('aria-hidden','false');
+                    } else {
+                        slideCard.classList.remove('visible');
+                        slideCard.setAttribute('aria-hidden','true');
+                    }
+                }
+            } catch (e) {}
+            if (active.tagName === 'VIDEO') {
+                try { active.play().catch(()=>{}); } catch (e) {}
+                // if video, advance when it ends
+                if (currentVideoElement && currentVideoListener) {
+                    try { currentVideoElement.removeEventListener('ended', currentVideoListener); } catch (e) {}
+                }
+                currentVideoElement = active;
+                currentVideoListener = () => setActive(i + 1);
+                try { active.addEventListener('ended', currentVideoListener); } catch (e) {}
+                stopSlideshow();
+            } else {
+                // non-video: ensure no lingering video listeners and start interval
+                if (currentVideoElement && currentVideoListener) {
+                    try { currentVideoElement.removeEventListener('ended', currentVideoListener); } catch (e) {}
+                    currentVideoElement = null;
+                    currentVideoListener = null;
+                }
+                // ensure slideshow runs for images
+                startSlideshow();
+            }
+            const c = CAPS[i % CAPS.length] || CAPS[0];
             capTag.textContent = c.tag;
             capTitle.textContent = c.title;
             capText.textContent = c.text;
@@ -91,9 +133,59 @@ document.addEventListener('DOMContentLoaded', () => {
             capPrimary.href = c.pHref;
             capSecondary.textContent = c.sText;
             capSecondary.href = c.sHref;
+            // update progress dots if present
+            try { updateDots(); } catch (e) {}
         }
+
+        function startSlideshow() {
+            stopSlideshow();
+            slideshowTimer = setInterval(() => setActive(i + 1), 6000);
+        }
+
+        function stopSlideshow() {
+            if (slideshowTimer) {
+                clearInterval(slideshowTimer);
+                slideshowTimer = null;
+            }
+        }
+
+
+        // Do not stop slideshow on hover — keep autoplay consistent
+        // Add explicit navigation controls (prev/next) and progress dots
+        const prevBtn = slideshowContainer.querySelector('.slideshow-prev');
+        const nextBtn = slideshowContainer.querySelector('.slideshow-next');
+        const dotsWrap = slideshowContainer.querySelector('.slideshow-dots');
+
+        function renderDots() {
+            if (!dotsWrap) return;
+            dotsWrap.innerHTML = '';
+            slides.forEach((s, idx) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+                b.addEventListener('click', () => {
+                    setActive(idx);
+                });
+                dotsWrap.appendChild(b);
+            });
+        }
+
+        function updateDots() {
+            if (!dotsWrap) return;
+            const buttons = [...dotsWrap.querySelectorAll('button')];
+            buttons.forEach((b, idx) => {
+                b.classList.toggle('active', idx === i);
+                if (idx === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+            });
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => { setActive(i - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { setActive(i + 1); });
+
+        renderDots();
         setActive(0);
-        setInterval(() => setActive(i + 1), 3500);
+        updateDots();
+        startSlideshow();
     }
 
     // Products
@@ -101,23 +193,91 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 'lux',
         name: 'Brazilian Straight 18"',
         price: 1899,
-        img: 'images/8.jpg'
+        category: 'weaves',
+        newArrival: true,
+        img: 'assets/Images/8.jpg'
+    }, {
+        id: 'wev1',
+        name: 'Peruvian Natural 16"',
+        price: 1599,
+        category: 'weaves',
+        newArrival: false,
+        img: 'assets/Images/Isentle.jpg'
+    }, {
+        id: 'wev2',
+        name: 'Malaysian Body Wave 18"',
+        price: 1999,
+        category: 'weaves',
+        newArrival: false,
+        img: 'assets/Images/Salee.jpg'
+    }, {
+        id: 'wev3',
+        name: 'Deep Wave 20"',
+        price: 1799,
+        category: 'weaves',
+        newArrival: true,
+        img: 'assets/Images/saleee.jpg'
     }, {
         id: 'brz',
         name: 'Body Wave 20"',
         price: 2299,
-        img: 'images/Salee.jpg'
+        category: 'weaves',
+        newArrival: false,
+        img: 'assets/Images/Salee.jpg'
     }, {
         id: 'inch',
         name: 'Kinky Curly 16"',
         price: 1749,
-        img: 'images/saleee.jpg'
+        category: 'weaves',
+        newArrival: false,
+        img: 'assets/Images/saleee.jpg'
     }, {
         id: 'bon',
         name: 'Silk Hair Bonnet',
         price: 149,
-        img: 'images/saLE.jpg'
+        category: 'clothing',
+        newArrival: true,
+        img: 'assets/Images/saLE.jpg'
+    }, {
+        id: 'cl1',
+        name: 'Logo Tee',
+        price: 249,
+        category: 'clothing',
+        newArrival: false,
+        img: 'assets/Images/Isentle2.jpg'
+    }, {
+        id: 'ins1',
+        name: 'Installation - Basic',
+        price: 450,
+        category: 'installations',
+        newArrival: false,
+        img: 'assets/Images/8.jpg'
+    }, {
+        id: 'ins2',
+        name: 'Installation - Premium',
+        price: 800,
+        category: 'installations',
+        newArrival: false,
+        img: 'assets/Images/Salee.jpg'
     }];
+
+    // Add skincare placeholder products
+    PRODUCTS.push({
+        id: 'sk1',
+        name: 'Gentle Cleanser',
+        price: 129,
+        category: 'skincare',
+        newArrival: false,
+        img: 'assets/Images/saLE.jpg'
+    });
+    PRODUCTS.push({
+        id: 'sk2',
+        name: 'Hydrating Serum',
+        price: 249,
+        category: 'skincare',
+        newArrival: true,
+        img: 'assets/Images/saleee.jpg'
+    });
     const cart = JSON.parse(localStorage.getItem('hb_cart') || '[]');
 
     function saveCart() {
@@ -131,25 +291,177 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateCount();
 
-    function renderShop() {
+    // Shop state for pagination and filter
+    const SHOP_STATE = { filter: 'all', page: 1, perPage: 8 };
+
+    function renderPagination(totalItems) {
+        const pager = document.getElementById('shop-pagination');
+        if (!pager) return;
+        pager.innerHTML = '';
+        const totalPages = Math.max(1, Math.ceil(totalItems / SHOP_STATE.perPage));
+        // previous
+        const prev = document.createElement('button');
+        prev.textContent = '‹';
+        prev.disabled = SHOP_STATE.page <= 1;
+        prev.addEventListener('click', () => { SHOP_STATE.page = Math.max(1, SHOP_STATE.page - 1); renderShop(SHOP_STATE.filter, SHOP_STATE.page); });
+        pager.appendChild(prev);
+
+        // page numbers (compact)
+        const start = Math.max(1, SHOP_STATE.page - 2);
+        const end = Math.min(totalPages, SHOP_STATE.page + 2);
+        if (start > 1) {
+            const b = document.createElement('button'); b.textContent = '1'; b.addEventListener('click', () => { SHOP_STATE.page = 1; renderShop(SHOP_STATE.filter, 1); }); pager.appendChild(b);
+            if (start > 2) { const e = document.createElement('span'); e.className = 'ellipsis'; e.textContent = '…'; pager.appendChild(e); }
+        }
+        for (let p = start; p <= end; p++) {
+            const b = document.createElement('button'); b.textContent = String(p);
+            if (p === SHOP_STATE.page) b.classList.add('active');
+            b.addEventListener('click', () => { SHOP_STATE.page = p; renderShop(SHOP_STATE.filter, p); });
+            pager.appendChild(b);
+        }
+        if (end < totalPages) {
+            if (end < totalPages - 1) { const e = document.createElement('span'); e.className = 'ellipsis'; e.textContent = '…'; pager.appendChild(e); }
+            const b = document.createElement('button'); b.textContent = String(totalPages); b.addEventListener('click', () => { SHOP_STATE.page = totalPages; renderShop(SHOP_STATE.filter, totalPages); }); pager.appendChild(b);
+        }
+
+        // next
+        const next = document.createElement('button');
+        next.textContent = '›';
+        next.disabled = SHOP_STATE.page >= totalPages;
+        next.addEventListener('click', () => { SHOP_STATE.page = Math.min(totalPages, SHOP_STATE.page + 1); renderShop(SHOP_STATE.filter, SHOP_STATE.page); });
+        pager.appendChild(next);
+    }
+
+    function renderShop(filter = 'all', page = 1) {
+        SHOP_STATE.filter = filter;
+        SHOP_STATE.page = page;
         const wrap = document.getElementById('shop-products');
         if (!wrap) return;
         wrap.innerHTML = '';
-        PRODUCTS.forEach(p => {
+        const items = PRODUCTS.filter(p => {
+            if (filter === 'all') return true;
+            if (filter === 'new') return !!p.newArrival;
+            return p.category === filter;
+        });
+
+        // Apply sorting
+        const sortSel = document.getElementById('shop-sort');
+        const sortVal = sortSel ? sortSel.value : 'default';
+        if (sortVal === 'price-asc') items.sort((a, b) => a.price - b.price);
+        else if (sortVal === 'price-desc') items.sort((a, b) => b.price - a.price);
+        else if (sortVal === 'new') items.sort((a, b) => (b.newArrival?1:0) - (a.newArrival?1:0));
+
+        const total = items.length;
+        if (total === 0) {
+            wrap.innerHTML = '<p style="grid-column:1/-1;color:#6a5b65">No items found in this category.</p>';
+            renderPagination(0);
+            return;
+        }
+
+        const start = (SHOP_STATE.page - 1) * SHOP_STATE.perPage;
+        const pageItems = items.slice(start, start + SHOP_STATE.perPage);
+
+        pageItems.forEach(p => {
             const card = document.createElement('div');
             card.className = 'card';
+            const badge = p.newArrival ? '<div class="badge-new">New</div>' : '';
             card.innerHTML = `
-            <img src="${p.img}" alt="${p.name}">
+            ${badge}
+            <img loading="lazy" src="${p.img}" alt="${p.name}">
             <div class="card-body">
                 <h3>${p.name}</h3>
                 <div class="price">R${p.price}</div>
-                <button class="btn add" data-id="${p.id}">Add to cart</button>
+                <div class="card-actions">
+                    <button class="btn add" data-id="${p.id}">Add to cart</button>
+                    <button class="btn secondary quick-view" data-id="${p.id}">Quick view</button>
+                </div>
             </div>
             <div class="truck-overlay"></div>`;
             wrap.appendChild(card);
         });
+
+        renderPagination(total);
     }
-    renderShop();
+
+    // Shop toolbar filtering
+    const shopToolbar = document.getElementById('shop-toolbar');
+    if (shopToolbar) {
+        shopToolbar.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-filter]');
+            if (!btn) return;
+            const filter = btn.getAttribute('data-filter');
+            // update visual active state and aria-pressed for assistive tech
+            shopToolbar.querySelectorAll('button[data-filter]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+            btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+            renderShop(filter);
+        });
+        // ensure initial aria-pressed state
+        shopToolbar.querySelectorAll('button[data-filter]').forEach(b => {
+            if (!b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false');
+        });
+    }
+    // sort change handler
+    const sortSelect = document.getElementById('shop-sort');
+    if (sortSelect) sortSelect.addEventListener('change', () => {
+        const active = shopToolbar.querySelector('button.active');
+        const filter = active ? active.getAttribute('data-filter') : 'all';
+        renderShop(filter);
+    });
+
+    renderShop('all');
+
+    // Quick view modal handler
+    document.body.addEventListener('click', (e) => {
+        const q = e.target.closest('.quick-view');
+        if (!q) return;
+        const id = q.getAttribute('data-id');
+        const p = PRODUCTS.find(x => x.id === id);
+        if (!p) return;
+        openQuickView(p);
+    });
+
+    function openQuickView(p) {
+        let modal = document.getElementById('quick-view-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'quick-view-modal';
+            modal.className = 'quick-view-modal';
+            modal.setAttribute('role','dialog');
+            modal.setAttribute('aria-modal','true');
+            modal.tabIndex = -1;
+            modal.innerHTML = `
+                <div class="quick-view-inner">
+                    <button class="close" aria-label="Close">×</button>
+                    <img class="qimg" src="${p.img}" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <div class="price">R${p.price}</div>
+                    <p class="qdesc">Product details coming soon.</p>
+                    <div class="row"><button class="btn add" data-id="${p.id}">Add to cart</button></div>
+                </div>`;
+            document.body.appendChild(modal);
+            // lock scroll
+            document.body.style.overflow = 'hidden';
+            const closeHandler = (ev) => {
+                if (ev.target === modal || ev.target.classList.contains('close')) closeModal();
+            };
+            const keyHandler = (ev) => { if (ev.key === 'Escape') closeModal(); };
+            modal.addEventListener('click', closeHandler);
+            document.addEventListener('keydown', keyHandler);
+            function closeModal() {
+                if (!modal) return;
+                document.body.style.overflow = '';
+                modal.remove();
+                document.removeEventListener('keydown', keyHandler);
+            }
+            // focus the close button for accessibility
+            const btnClose = modal.querySelector('.close');
+            if (btnClose) btnClose.focus();
+        } else {
+            modal.querySelector('.qimg').src = p.img;
+            modal.querySelector('h3').textContent = p.name;
+            modal.querySelector('.price').textContent = `R${p.price}`;
+        }
+    }
 
     // Toast
     function toast(msg) {
