@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             welcomeBanner.classList.add('hidden');
             return;
         }
-        welcomeName.textContent = user.email.split('@')[0];
+        welcomeName.textContent = user.fullName || user.email.split('@')[0];
         welcomeBanner.classList.remove('hidden');
     }
 
@@ -420,7 +420,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const createForm = document.getElementById('create-account-form');
     if (createForm) {
+        const fullName = document.getElementById('create-name');
+        const surname = document.getElementById('create-surname');
         const email = document.getElementById('create-email');
+        const phone = document.getElementById('create-phone');
+        const contactMethod = document.getElementById('create-contact-method');
         const password = document.getElementById('create-password');
         const confirmPassword = document.getElementById('create-password-confirm');
         const createError = document.getElementById('create-error');
@@ -433,18 +437,23 @@ document.addEventListener('DOMContentLoaded', () => {
         createForm.addEventListener('submit', (e) => {
             e.preventDefault();
             createError.textContent = '';
+            if (!fullName.value.trim()) return createError.textContent = 'Please enter your first name.';
+            if (!surname.value.trim()) return createError.textContent = 'Please enter your surname.';
             if (password.value.length < 6) return createError.textContent = 'Password must be at least 6 characters.';
             if (password.value !== confirmPassword.value) return createError.textContent = 'Passwords do not match.';
             if (!email.checkValidity()) return createError.textContent = 'Please enter a valid email address.';
             setUser({
-                email: email.value
+                email: email.value,
+                fullName: `${fullName.value.trim()} ${surname.value.trim()}`,
+                phone: phone.value.trim(),
+                contactMethod: contactMethod.value
             });
             cart.length = 0;
             saveCart();
             updateCount();
             location.hash = 'home';
             renderWelcome();
-            toast(`Welcome, ${email.value}! Your account is ready.`);
+            toast(`Welcome, ${fullName.value.trim()}! Your account is ready.`);
         });
     }
 
