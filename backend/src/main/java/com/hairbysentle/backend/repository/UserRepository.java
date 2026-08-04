@@ -1,5 +1,13 @@
 package com.hairbysentle.backend.repository;
 
-public interface UserRepository {
-    // TODO: add methods for user persistence and lookup by email/user id.
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.hairbysentle.backend.model.User;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
 }
