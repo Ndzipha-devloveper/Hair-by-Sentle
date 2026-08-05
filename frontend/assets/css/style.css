@@ -211,6 +211,155 @@ header {
     margin-bottom: 16px
 }
 
+.home-categories {
+    padding: 24px 0 0;
+}
+.home-categories h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+.category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.category-card {
+    display: block;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+.category-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+.category-card .card-body {
+    padding: 18px;
+}
+.category-card h3 {
+    margin-bottom: 8px;
+}
+
+.install-promo {
+    padding: 28px 0 0;
+}
+.promo-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    align-items: center;
+    background: #fff;
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: var(--shadow-strong);
+}
+.promo-card img {
+    width: 100%;
+    border-radius: 18px;
+    object-fit: cover;
+    min-height: 300px;
+}
+.promo-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin: 16px 0 10px;
+}
+.promo-card p {
+    color: var(--muted);
+    max-width: 520px;
+}
+
+.testimonials {
+    padding: 32px 0 0;
+}
+.testimonials h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+.testimonial-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.testimonial-card {
+    padding: 24px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    min-height: 220px;
+}
+.testimonial-card p {
+    color: #5f4f59;
+    margin-bottom: 18px;
+}
+.testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--ink);
+}
+.testimonial-author span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.trust-features {
+    padding: 28px 0 0;
+}
+.trust-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.feature-card {
+    padding: 22px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #f4eef1;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.04);
+}
+.feature-card .feature-icon,
+.card-body .feature-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: rgba(238, 192, 208, 0.25);
+    margin-bottom: 16px;
+    color: var(--mauve);
+}
+.feature-card .feature-icon svg,
+.card-body .feature-icon svg {
+    width: 24px;
+    height: 24px;
+}
+.feature-icon.small {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+}
+.feature-card h3,
+.card-body h3 {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 980px) {
+    .promo-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 28px;
+    }
+    .promo-card {
+        padding: 20px;
+    }
+}
+
 /* ============================================================
    Buttons — Pink only (no rainbow borders)
    ============================================================ */
@@ -570,20 +719,75 @@ section h2 {
     box-shadow: var(--shadow-strong);
 }
 
-/* Video grid used on Installations page */
+/* Video slideshow used on Installations page */
 .video-grid {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 12px;
 }
-.video-card {
-    flex: 1 1 320px;
+.install-slideshow {
+    position: relative;
+    width: min(860px, 100%);
+    aspect-ratio: 16/9;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
 }
-.video-card video {
+.install-slideshow video {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    border-radius: 12px;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .6s ease;
+}
+.install-slideshow video.active {
+    opacity: 1;
+}
+.install-slideshow .slideshow-prev,
+.install-slideshow .slideshow-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    font-size: 22px;
+    display: grid;
+    place-items: center;
+    z-index: 4;
+    cursor: pointer;
+}
+.install-slideshow .slideshow-prev { left: 14px }
+.install-slideshow .slideshow-next { right: 14px }
+.install-slideshow .slideshow-prev:hover,
+.install-slideshow .slideshow-next:hover { transform: translateY(-50%) scale(1.05) }
+.install-slideshow .slideshow-dots {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 14px;
+    display: flex;
+    gap: 8px;
+    z-index: 4;
+}
+.install-slideshow .slideshow-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+}
+.install-slideshow .slideshow-dots button.active {
+    background: var(--accent-hover);
+    width: 14px;
+    height: 10px;
+    border-radius: 999px;
 }
 
 /* Slightly tighter gaps for the why/gallery grids */
@@ -800,7 +1004,14 @@ section h2 {
     background: #fff;
     border-radius: 16px;
     box-shadow: var(--shadow);
-    padding: 16px
+    padding: 16px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .35s ease, transform .35s ease;
+}
+.summary-hidden {
+    opacity: 0;
+    transform: translateY(-12px);
 }
 
 .summary-row {

@@ -8,11 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!welcomeBanner || !welcomeName) return;
         const user = JSON.parse(localStorage.getItem('hb_user') || 'null');
         if (!user) {
-            welcomeBanner.classList.add('hidden');
+            welcomeBanner.classList.add('summary-hidden');
             return;
         }
+        const firstVisit = localStorage.getItem('hb_welcome_shown');
+        const now = Date.now();
+        if (firstVisit && now - Number(firstVisit) > 60_000) {
+            welcomeBanner.classList.add('summary-hidden');
+            return;
+        }
+        if (!firstVisit) {
+            localStorage.setItem('hb_welcome_shown', String(now));
+        }
         welcomeName.textContent = user.fullName || user.email.split('@')[0];
-        welcomeBanner.classList.remove('hidden');
+        welcomeBanner.classList.remove('summary-hidden');
     }
 
     function showView(id) {
@@ -187,6 +196,71 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDots();
         startSlideshow();
     }
+
+    function initVideoSlideshow(container) {
+        const slides = [...container.querySelectorAll('img,video')];
+        let index = 0;
+        let currentVideoElement = null;
+        let currentVideoListener = null;
+
+        function setActive(n) {
+            slides.forEach(s => {
+                s.classList.remove('active');
+                if (s.tagName === 'VIDEO') {
+                    try { s.pause(); s.currentTime = 0; } catch (e) {}
+                }
+            });
+            index = (n + slides.length) % slides.length;
+            const active = slides[index];
+            active.classList.add('active');
+            if (active.tagName === 'VIDEO') {
+                try { active.play().catch(() => {}); } catch (e) {}
+                if (currentVideoElement && currentVideoListener) {
+                    try { currentVideoElement.removeEventListener('ended', currentVideoListener); } catch (e) {}
+                }
+                currentVideoElement = active;
+                currentVideoListener = () => setActive(index + 1);
+                try { active.addEventListener('ended', currentVideoListener); } catch (e) {}
+            }
+            updateDots();
+        }
+
+        const prevBtn = container.querySelector('.slideshow-prev');
+        const nextBtn = container.querySelector('.slideshow-next');
+        const dotsWrap = container.querySelector('.slideshow-dots');
+
+        function renderDots() {
+            if (!dotsWrap) return;
+            dotsWrap.innerHTML = '';
+            slides.forEach((s, idx) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.setAttribute('aria-label', `Go to video ${idx + 1}`);
+                b.addEventListener('click', () => {
+                    setActive(idx);
+                });
+                dotsWrap.appendChild(b);
+            });
+        }
+
+        function updateDots() {
+            if (!dotsWrap) return;
+            const buttons = [...dotsWrap.querySelectorAll('button')];
+            buttons.forEach((b, idx) => {
+                b.classList.toggle('active', idx === index);
+                if (idx === index) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+            });
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', () => { setActive(index - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { setActive(index + 1); });
+
+        renderDots();
+        setActive(0);
+    }
+
+    const installSlideshowContainer = document.getElementById('install-slideshow');
+    if (installSlideshowContainer) initVideoSlideshow(installSlideshowContainer);
 
     // Products
     const PRODUCTS = [{

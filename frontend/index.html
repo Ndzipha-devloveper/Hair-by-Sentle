@@ -119,27 +119,62 @@
             </div>
 
             <section class="space"></section>
-            <section class="why-choose">
-                <h2>Why Choose Hair by Sentle</h2>
-                <div class="grid why-grid">
-                    <div class="card">
+            <section class="home-categories">
+                <h2>Shop by Category</h2>
+                <div class="grid category-grid">
+                    <a class="card category-card" href="#shop" data-category="weaves">
+                        <img src="assets/Images/8.jpg" alt="Weaves category">
                         <div class="card-body">
-                            <h3>Premium Human Hair</h3>
-                            <p>Natural textures and long-lasting bundles that look and feel premium.</p>
+                            <h3>Weaves</h3>
+                            <p>Premium textures, body wave, straight, and curly bundles.</p>
+                        </div>
+                    </a>
+                    <a class="card category-card" href="#install" data-category="installations">
+                        <img src="assets/Images/Isentle.jpg" alt="Installations category">
+                        <div class="card-body">
+                            <h3>Installations</h3>
+                            <p>Local George installations with closures, frontals, and wig fitting.</p>
+                        </div>
+                    </a>
+                    <a class="card category-card" href="#shop" data-category="clothing">
+                        <img src="assets/Images/saLE.jpg" alt="Bonnets category">
+                        <div class="card-body">
+                            <h3>Bonnets & Care</h3>
+                            <p>Silk bonnets, wraps, and essential hair care accessories.</p>
+                        </div>
+                    </a>
+                    <a class="card category-card" href="#shop" data-category="skincare">
+                        <img src="assets/Images/Isentle2.jpg" alt="Skincare category">
+                        <div class="card-body">
+                            <h3>Beauty Essentials</h3>
+                            <p>Finish your look with styling tools, products, and more.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+                <div class="row" style="justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+                    <div>
+                        <span class="pill">Welcome back, <strong id="welcome-name"></strong>!</span>
+                        <p style="margin:8px 0 0;max-width:600px;color:#5a4e55">Your cart is now reset and ready for new picks. Visit Shop or Checkout once you’re ready.</p>
+                    </div>
+                    <a class="btn secondary" href="#shop">Continue shopping</a>
+                </div>
+            </div>
+
+            <section class="space"></section>
+            <section class="install-promo">
+                <div class="promo-card">
+                    <div>
+                        <span class="pill">Installations</span>
+                        <h2>Book your custom weave install in George</h2>
+                        <p>Closures, frontals and wig fitting delivered with care and precision. Appointments include consultation and styling advice.</p>
+                        <div class="row" style="gap:12px;flex-wrap:wrap;margin-top:16px;">
+                            <a class="btn" href="#install">Book Now</a>
+                            <a class="btn secondary" href="#shop">Shop Our Hair</a>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Local Installations</h3>
-                            <p>Trusted George-based styling with careful fitting and finish.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Fast Nationwide Delivery</h3>
-                            <p>Secure shipping across South Africa, straight to your door.</p>
-                        </div>
-                    </div>
+                    <img src="assets/Images/Isentle3.jpg" alt="Hair installation" loading="lazy">
                 </div>
             </section>
             <section class="space"></section>
@@ -189,6 +224,88 @@
                         </div>
                     </div>
             </section>
+            <section class="space"></section>
+            <section class="why-choose">
+                <h2>Why Choose Hair by Sentle</h2>
+                <div class="grid why-grid">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="feature-icon small">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v5c0 5-3.5 9.7-7 11-3.5-1.3-7-6-7-11V6l7-4Z"/></svg>
+                            </div>
+                            <h3>Premium Human Hair</h3>
+                            <p>Natural textures and long-lasting bundles that look and feel premium.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="feature-icon small">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5v3H7V7a5 5 0 0 1 5-5Z"/><path d="M7 12v8h10v-8"/></svg>
+                            </div>
+                            <h3>Local Installations</h3>
+                            <p>Trusted George-based styling with careful fitting and finish.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="feature-icon small">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12a10 10 0 1 1-10-10 10 10 0 0 1 10 10Z"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                            </div>
+                            <h3>Fast Nationwide Delivery</h3>
+                            <p>Secure shipping across South Africa, straight to your door.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="testimonials">
+                <h2>What Our Clients Say</h2>
+                <div class="grid testimonial-grid">
+                    <div class="card testimonial-card">
+                        <p>“My install was flawless and the hair held beautifully for weeks. The attention to detail was amazing.”</p>
+                        <div class="testimonial-author"><strong>Thandi</strong> <span>George</span></div>
+                    </div>
+                    <div class="card testimonial-card">
+                        <p>“I love how the bundles look natural and soft. Delivery was fast and the service was so friendly.”</p>
+                        <div class="testimonial-author"><strong>Anele</strong> <span>Cape Town</span></div>
+                    </div>
+                    <div class="card testimonial-card">
+                        <p>“The styling advice helped me choose the perfect texture. The installation process was quick and easy.”</p>
+                        <div class="testimonial-author"><strong>Nokwazi</strong> <span>George</span></div>
+                    </div>
+                </div>
+            </section>
+            <section class="trust-features">
+                <div class="grid trust-grid">
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8Z"/><path d="M3 8l4-4h10l4 4"/><path d="M7 11h10"/></svg>
+                        </div>
+                        <h3>Fast Shipping</h3>
+                        <p>Nationwide delivery across South Africa, safely packaged for every order.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 0-.9-3.8 8.5 8.5 0 1 0-2.6 11.1"/><path d="M22 4l-6 6"/></svg>
+                        </div>
+                        <h3>Local Quality</h3>
+                        <p>George-based installations with premium hair and professional styling.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h3>Secure Payments</h3>
+                        <p>Shop with confidence using secure checkout and trusted payment options.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 10h8"/><path d="M8 14h4"/></svg>
+                        </div>
+                        <h3>Customer Support</h3>
+                        <p>We’re here to help by phone or WhatsApp for product advice and booking support.</p>
+                    </div>
+                </div>
+            </section>
         </section>
 
         <section id="shop" class="view">
@@ -227,13 +344,12 @@
             <div class="summary">
                 <p>Professional installations for closures, frontals, and wig customization in George. Pricing shared on consultation based on hair type and style.</p>
                 <div class="video-grid">
-                    <div class="video-card">
-                        <video controls playsinline src="assets/videos/CapCut_sama28_fyp_ponytail_tutorials_0613144360.mp4"></video>
-                        <h3>Ponytail Tutorial</h3>
-                    </div>
-                    <div class="video-card">
-                        <video controls playsinline src="assets/videos/Salonhumanhairblendwigscapetown.mp4"></video>
-                        <h3>Installation Demo</h3>
+                    <div class="slideshow install-slideshow" id="install-slideshow">
+                        <video muted playsinline preload="metadata" controls poster="assets/Images/Isentle.jpg" src="assets/videos/CapCut_sama28_fyp_ponytail_tutorials_0613144360.mp4"></video>
+                        <video muted playsinline preload="metadata" controls poster="assets/Images/Isentle2.jpg" src="assets/videos/Salonhumanhairblendwigscapetown.mp4"></video>
+                        <button class="slideshow-prev" aria-label="Previous video">‹</button>
+                        <button class="slideshow-next" aria-label="Next video">›</button>
+                        <div class="slideshow-dots" aria-hidden="false" role="tablist"></div>
                     </div>
                 </div>
                 <div class="space"></div>
