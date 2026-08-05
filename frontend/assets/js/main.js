@@ -548,6 +548,111 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => t.classList.remove('show'), 2400);
     }
 
+    function getAudioContext() {
+        if (window.hbAudioContext) return window.hbAudioContext;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return null;
+        window.hbAudioContext = new AudioCtx();
+        return window.hbAudioContext;
+    }
+
+    function playTone({ frequency = 880, duration = 0.1, type = 'sine', gain = 0.15 }) {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const vol = ctx.createGain();
+        osc.type = type;
+        osc.frequency.value = frequency;
+        vol.gain.setValueAtTime(gain, ctx.currentTime);
+        vol.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(vol);
+        vol.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + duration);
+    }
+
+    function playTypingSound() {
+        const interval = 0.08;
+        for (let i = 0; i < 4; i += 1) {
+            setTimeout(() => {
+                playTone({ frequency: 1200 - i * 120, duration: 0.05, type: 'triangle', gain: 0.08 });
+            }, i * interval * 1000);
+        }
+    }
+
+    function playNotificationSound() {
+        playTone({ frequency: 760, duration: 0.16, type: 'square', gain: 0.14 });
+    }
+
+    function appendChatMessage(text, type = 'received') {
+        const messages = document.getElementById('chat-messages');
+        if (!messages) return;
+        const empty = messages.querySelector('.chat-empty');
+        if (empty) empty.remove();
+        const bubble = document.createElement('div');
+        bubble.className = `chat-message ${type}`;
+        bubble.textContent = text;
+        messages.appendChild(bubble);
+        messages.scrollTop = messages.scrollHeight;
+        if (type === 'received') playNotificationSound();
+    }
+
+    function setChatTyping(visible) {
+        const typing = document.getElementById('chat-typing');
+        if (!typing) return;
+        typing.classList.toggle('hidden', !visible);
+        if (visible) playTypingSound();
+    }
+
+    function openChatPanel() {
+        const panel = document.getElementById('chat-panel');
+        if (!panel) return;
+        panel.classList.remove('hidden');
+        const input = document.getElementById('chat-input');
+        if (input) input.focus();
+    }
+
+    function closeChatPanel() {
+        const panel = document.getElementById('chat-panel');
+        if (!panel) return;
+        panel.classList.add('hidden');
+    }
+
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatClose = document.getElementById('chat-close');
+    const chatForm = document.getElementById('chat-form');
+
+    if (chatToggle) {
+        chatToggle.addEventListener('click', () => {
+            const panel = document.getElementById('chat-panel');
+            if (panel) {
+                if (panel.classList.contains('hidden')) openChatPanel();
+                else closeChatPanel();
+            }
+        });
+    }
+
+    if (chatClose) {
+        chatClose.addEventListener('click', closeChatPanel);
+    }
+
+    if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            if (!input) return;
+            const value = input.value.trim();
+            if (!value) return;
+            appendChatMessage(value, 'sent');
+            input.value = '';
+            setChatTyping(true);
+            setTimeout(() => {
+                setChatTyping(false);
+                appendChatMessage('Thanks for your message! 😊 Our team will reach out soon. For now, you can browse products or check our FAQs.', 'received');
+            }, 1200);
+        });
+    }
+
     // Truck animation
     function buildTruckScene(container) {
         const overlay = container.querySelector('.truck-overlay');
