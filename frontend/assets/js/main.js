@@ -45,14 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const capPrimary = document.getElementById('cap-primary');
         const capSecondary = document.getElementById('cap-secondary');
         const CAPS = [{
-            tag: 'Weaves',
-            title: 'Luxury Weaves for Every Queen',
-            text: 'Premium textures, natural look, and styles that move with you.',
-            pHref: '#shop',
-            pText: 'Shop Now',
-            sHref: '#shop',
-            sText: 'Explore'
-        }, {
             tag: 'Installations',
             title: 'Book Professional Installations',
             text: 'Secure installs and friendly service in George.',
@@ -60,6 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
             pText: 'Book Now',
             sHref: '#shop',
             sText: 'Buy Weave'
+        }, {
+            tag: 'Weaves',
+            title: 'Luxury Weaves for Every Queen',
+            text: 'Premium textures, natural look, and styles that move with you.',
+            pHref: '#shop',
+            pText: 'Shop Now',
+            sHref: '#shop',
+            sText: 'Explore'
         }, {
             tag: 'Bonnets',
             title: 'Protect Your Crown in Style',

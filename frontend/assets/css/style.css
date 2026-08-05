@@ -426,19 +426,20 @@ header {
 
 .slide-caption {
     position: absolute;
-    left: 18px;
-    top: 22%;
-    width: min(460px, 46%);
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    width: min(92%, 560px);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(8px);
-    padding: 18px 20px;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    padding: 20px 24px;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    border: 1px solid rgba(255, 255, 255, 0.95);
 }
 
 .cap-tag {
