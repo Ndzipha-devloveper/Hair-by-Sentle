@@ -1,12 +1,11 @@
 package com.hairbysentle.backend.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.hairbysentle.backend.model.Product;
 import com.hairbysentle.backend.repository.ProductRepository;
@@ -24,7 +23,7 @@ class ProductServiceTest {
         product.setCategory("weave");
         product.setActive(true);
 
-        when(productRepository.findByIsActiveTrueOrderByCreatedAtDesc()).thenReturn(List.of(product));
+        when(productRepository.findByActiveTrueOrderByCreatedAtDesc()).thenReturn(List.of(product));
 
         List<Product> result = productService.getAllActiveProducts();
 
