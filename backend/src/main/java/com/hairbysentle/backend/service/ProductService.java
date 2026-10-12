@@ -18,10 +18,10 @@ public class ProductService {
     }
 
     public List<Product> getAllActiveProducts() {
-        return productRepository.findByIsActiveTrueOrderByCreatedAtDesc();
+        return productRepository.findByActiveTrueOrderByCreatedAtDesc();
     }
 
     public Optional<Product> getActiveProductById(Long productId) {
-        return productRepository.findByProductIdAndIsActiveTrue(productId);
+        return productRepository.findByProductIdAndActiveTrue(productId);
     }
 }
