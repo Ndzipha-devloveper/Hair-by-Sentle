@@ -77,6 +77,68 @@ function initHeader(){
   document.querySelectorAll('[data-menu-close]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('mobileMenu')?.classList.add('hidden');document.body.classList.remove('no-scroll');}));
   document.querySelectorAll('[data-menu-link]').forEach(a=>a.addEventListener('click',()=>{document.getElementById('mobileMenu')?.classList.add('hidden');document.body.classList.remove('no-scroll');}));
 }
+function initSignup(){
+  const nameInput=document.querySelector('input[placeholder="Your name"]');
+  const emailInput=document.querySelector('input[placeholder="you@example.com"]');
+  const passwordInput=document.querySelector('input[placeholder="Create a password"]');
+  const form=nameInput?.closest('form');
+  if(!form||!emailInput||!passwordInput)return;
+  form.onsubmit=null;
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    const nameParts=nameInput.value.trim().split(/\s+/);
+    const firstName=nameParts.shift()||'';
+    const lastName=nameParts.join(' ')||firstName;
+    const phoneInput=form.querySelector('input[type="tel"]');
+    const button=form.querySelector('button');
+    if(button)button.disabled=true;
+    try{
+      const response=await fetch('http://localhost:8080/auth/register',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({firstName,lastName,email:emailInput.value.trim(),phone:phoneInput?.value.trim()||'',preferredContactMethod:'Email',password:passwordInput.value}),
+        signal:AbortSignal.timeout(15000)
+      });
+      const message=await response.text();
+      if(!response.ok)throw new Error(message||'Registration failed');
+      toast(message||'Account created successfully');
+      form.reset();
+    }catch(error){
+      toast(error.message||'Could not connect to the backend');
+    }finally{
+      if(button)button.disabled=false;
+    }
+  });
+}
+function initLogin(){
+  const form=document.querySelector('[data-login-form]');
+  if(!form)return;
+  const emailInput=form.querySelector('input[type="email"]');
+  const passwordInput=form.querySelector('input[type="password"]');
+  const button=form.querySelector('button[type="submit"]')||form.querySelector('button');
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(!emailInput||!passwordInput)return;
+    if(button)button.disabled=true;
+    try{
+      const response=await fetch('http://localhost:8080/auth/login',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:emailInput.value.trim(),password:passwordInput.value}),
+        signal:AbortSignal.timeout(15000)
+      });
+      const message=(await response.text()).trim();
+      if(!response.ok||message.toLowerCase()!=='login successful')throw new Error(message||'We could not sign you in. Check your details and try again.');
+      toast('Login successful');
+      form.reset();
+    }catch(error){
+      const message=error.name==='TimeoutError'?'Sign-in timed out. Please try again.':error instanceof TypeError?'Unable to connect. Please try again.':error.message||'Unable to sign in right now. Please try again.';
+      toast(message);
+    }finally{
+      if(button)button.disabled=false;
+    }
+  });
+}
 function productCard(p){return `<article class="group"><div class="img-hover relative aspect-[.84] rounded-[24px] overflow-hidden bg-rose"><img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover"><span class="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-berry">${p.tag}</span><button onclick="addToCart(${p.id},this)" aria-label="Add ${p.name} to cart" class="add-to-cart absolute right-3 bottom-3 size-11 rounded-full bg-white text-berry shadow-lg grid place-items-center transition sm:opacity-0 sm:group-hover:opacity-100 hover:bg-berry hover:text-white"><i data-lucide="plus" class="size-5"></i></button></div><a href="product.html?id=${p.id}" class="block pt-3"><p class="text-sm font-bold">${p.name}</p><p class="mt-1 text-[11px] text-ink/45">${p.meta}</p><div class="mt-2 flex items-center justify-between"><span class="font-extrabold text-pink">${money(p.price)}</span><span class="text-[10px] text-ink/35">★★★★★</span></div></a></article>`}
 function mountProducts(targetId,filter='all'){const target=document.getElementById(targetId);if(!target)return;let list=filter==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===filter);target.innerHTML=list.map(productCard).join('');if(window.lucide)lucide.createIcons();}
 function initReveal(){if(!('IntersectionObserver' in window)){document.querySelectorAll('.reveal').forEach(e=>e.classList.add('show'));return;}const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));}
@@ -87,4 +149,4 @@ function initLoader(){
   function tick(now){const p=Math.min(1,(now-start)/duration);if(fill)fill.style.width=(p*100).toFixed(1)+'%';if(percent)percent.textContent=Math.round(p*100)+'%';if(p<1){requestAnimationFrame(tick);}else{setTimeout(()=>loader.classList.add('done'),250);}}
   requestAnimationFrame(tick);
 }
-document.addEventListener('DOMContentLoaded',()=>{if(document.getElementById('cartMount')&&typeof cartMarkup==='function')document.getElementById('cartMount').innerHTML=cartMarkup();if(window.lucide)window.lucide.createIcons();initHeader();initReveal();initLoader();});
+document.addEventListener('DOMContentLoaded',()=>{if(document.getElementById('cartMount')&&typeof cartMarkup==='function')document.getElementById('cartMount').innerHTML=cartMarkup();if(window.lucide)window.lucide.createIcons();initHeader();initSignup();initLogin();initReveal();initLoader();});

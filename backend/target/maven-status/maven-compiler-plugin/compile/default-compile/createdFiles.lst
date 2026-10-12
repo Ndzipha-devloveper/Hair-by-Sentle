@@ -1,14 +1,4 @@
-Product.class
-ProductController.class
-com/hairbysentle/backend/BackendApplication.class
-com/hairbysentle/backend/service/AuthService.class
-ProductRepository.class
 com/hairbysentle/backend/controller/AuthController.class
-com/hairbysentle/backend/repository/CustomerRepository.class
-com/hairbysentle/backend/model/Order.class
-com/hairbysentle/backend/repository/OrderRepository.class
-com/hairbysentle/backend/service/ProductService.class
-com/hairbysentle/backend/service/CustomerService.class
 com/hairbysentle/backend/dto/LoginRequest.class
 com/hairbysentle/backend/dto/RegisterRequest.class
 ProductControllerTest.class
@@ -16,3 +6,9 @@ ProductServiceTest.class
 com/hairbysentle/backend/model/CartItem.class
 com/hairbysentle/backend/model/Customer.class
 BackendApplicationTests.class
+com/hairbysentle/backend/BackendApplication.class
+com/hairbysentle/backend/service/AuthService.class
+com/hairbysentle/backend/model/Order.class
+com/hairbysentle/backend/repository/OrderRepository.class
+com/hairbysentle/backend/service/ProductService.class
+com/hairbysentle/backend/service/CustomerService.class

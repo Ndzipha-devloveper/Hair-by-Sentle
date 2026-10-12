@@ -2,6 +2,8 @@ package com.hairbysentle.backend.model;
 
 import java.util.regex.Pattern;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,10 +14,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
 @Entity
-@Table(name = "Customer")
+@Table(name = "users")
 public class Customer {
 
     private static final Pattern VALID_PASSWORD_CHARS =
@@ -26,36 +26,41 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CustomerID")
+    @Column(name = "user_id")
     private Long customerId;
 
     @NotBlank
+    @Size(max = 100)
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @NotBlank
     @Size(min = 2, max = 50)
-    @Column(name = "FirstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @NotBlank
     @Size(min = 2, max = 50)
-    @Column(name = "LastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @NotBlank
     @Email
     @Size(max = 100)
-    @Column(name = "Email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "Phone", length = 20)
+    @Column(name = "phone", length = 20)
     private String phone;
 
     @NotBlank
     @Size(max = 20)
-    @Column(name = "PreferredContactMethod", nullable = false)
+    @Column(name = "preferred_contact_method", nullable = false)
     private String preferredContactMethod;
 
     @NotBlank
     @Size(max = 255)
-    @Column(name = "PasswordHash", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     public Customer() {
@@ -78,6 +83,10 @@ public class Customer {
 
     public Long getCustomerId() {
         return customerId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getFirstName() {
@@ -110,6 +119,13 @@ public class Customer {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public void setUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+        this.username = username.trim();
     }
 
     public void setFirstName(String firstName) {
@@ -222,6 +238,13 @@ public class Customer {
     public void setPasswordHash(String rawPassword) {
         validatePassword(rawPassword);
         this.passwordHash = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+    }
+
+    public void setStoredPasswordHash(String passwordHash) {
+        if (passwordHash == null || passwordHash.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password hash cannot be empty");
+        }
+        this.passwordHash = passwordHash;
     }
 
     private void validatePassword(String password) {
