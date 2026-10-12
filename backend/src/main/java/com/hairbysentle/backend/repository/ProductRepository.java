@@ -9,7 +9,7 @@ import com.hairbysentle.backend.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    List<Product> findByIsActiveTrueOrderByCreatedAtDesc();
+    List<Product> findByActiveTrueOrderByCreatedAtDesc();
 
-    Optional<Product> findByProductIdAndIsActiveTrue(Long productId);
+    Optional<Product> findByProductIdAndActiveTrue(Long productId);
 }
