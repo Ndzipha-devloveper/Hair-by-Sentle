@@ -2,6 +2,9 @@
 
 ## 🧾 Hair by Isentle
 
+### WeThinkCode_ Proof of Work
+Cloud Computing verification code: `WTC-XW3GPAPC`
+
 ### 💇‍♀️ Project Overview
 **Hair by Isentle** Isentle, a local entrepreneur selling premium weaves and bundles, was running her business through WhatsApp. One day, her account got hacked. Clients were scammed out of their hard-earned money. Posts started circulating on Facebook. She was trending — but for the wrong reasons. People thought she was the scammer.
 
