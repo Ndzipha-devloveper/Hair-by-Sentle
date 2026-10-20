@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1260" viewBox="0 0 1440 1260" role="img" aria-labelledby="title description">
+  <title id="title">HairBySentle appointment booking UI concept</title>
+  <desc id="description">A luxury blush and berry booking interface showing an October 2026 calendar, available and booked appointment times, and loading, no availability, and selected-time states.</desc>
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf9"/><stop offset="1" stop-color="#faece9"/></linearGradient>
+    <linearGradient id="berry" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#80113f"/><stop offset="1" stop-color="#5b1735"/></linearGradient>
+    <linearGradient id="pinkwash" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f9e4e5"/><stop offset="1" stop-color="#fff3f1"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#5b1735" flood-opacity=".08"/></filter>
+    <style>
+      .sans{font-family:Arial,Helvetica,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif}.ink{fill:#321424}.muted{fill:#786974}.berryText{fill:#74113d}.tiny{font-size:12px}.small{font-size:14px}.body{font-size:16px}.label{font-size:13px;font-weight:700;letter-spacing:1px}.day{font-size:13px}
+    </style>
+  </defs>
+  <rect width="1440" height="1260" fill="url(#page)"/>
+  <circle cx="1280" cy="110" r="280" fill="#f7dce5" opacity=".25"/>
+  <circle cx="135" cy="1070" r="255" fill="#f7dce5" opacity=".17"/>
+  <!-- Navigation -->
+  <g class="sans">
+    <text x="82" y="62" class="serif berryText" font-size="35">HairBySentle</text>
+    <text x="84" y="82" fill="#9b7485" font-size="9" letter-spacing="2.1">PREMIUM HAIR  ·  BEAUTY  ·  CONFIDENCE</text>
+    <path d="M150 28c-9-12-21 2 0 19 21-17 9-31 0-19Z" fill="none" stroke="#8b1747" stroke-width="1.5"/>
+    <text x="860" y="54" fill="#593549" font-size="14">Home</text><text x="930" y="54" fill="#593549" font-size="14">Shop</text>
+    <text x="987" y="54" fill="#74113d" font-size="14" font-weight="700">Installations</text><path d="M986 65h92" stroke="#74113d" stroke-width="2"/>
+    <text x="1100" y="54" fill="#593549" font-size="14">About</text><text x="1162" y="54" fill="#593549" font-size="14">Contact</text>
+    <circle cx="1288" cy="49" r="14" fill="#fff" stroke="#edd5dc"/><path d="M1282 49h12m-6-6v12" stroke="#74113d" stroke-width="1.5"/>
+  </g>
+  <!-- Intro -->
+  <g class="sans">
+    <text x="92" y="145" fill="#a33362" font-size="12" font-weight="700" letter-spacing="4">INSTALLATIONS  /  APPOINTMENTS</text>
+    <text x="90" y="204" class="serif ink" font-size="50">Find a time for your next look.</text>
+    <text x="92" y="238" class="muted" font-size="17">Choose a date and a time that works for you. Your booking is personal, polished, and easy.</text>
+    <g transform="translate(1150 152)"><rect width="190" height="56" rx="28" fill="#fff" stroke="#f0dbe0"/><circle cx="28" cy="28" r="15" fill="#f8e8ec"/><path d="M21 28h14M28 21v14" stroke="#8b1747" stroke-width="1.6"/><text x="54" y="25" class="berryText" font-size="12" font-weight="700">PRIVATE &amp; SECURE</text><text x="54" y="41" class="muted" font-size="11">Only availability is shown</text></g>
+  </g>
+  <!-- Main booking panel -->
+  <g filter="url(#shadow)"><rect x="72" y="285" width="1296" height="590" rx="28" fill="#fff" stroke="#f1e2e4"/></g>
+  <g class="sans">
+    <text x="112" y="334" class="serif ink" font-size="27">Book your installation</text>
+    <text x="112" y="360" class="muted" font-size="14">Select a date, then choose an available time.</text>
+    <!-- Steps -->
+    <g transform="translate(1000 316)">
+      <circle cx="12" cy="12" r="12" fill="url(#berry)"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">1</text><text x="34" y="16" class="berryText" font-size="12" font-weight="700">DATE</text>
+      <path d="M82 12h38" stroke="#edcbd4"/><circle cx="137" cy="12" r="12" fill="#f7e8eb" stroke="#cda5b5"/><text x="137" y="16" text-anchor="middle" fill="#8b1747" font-size="11">2</text><text x="158" y="16" class="muted" font-size="12">TIME</text>
+      <path d="M204 12h35" stroke="#edcbd4"/><circle cx="256" cy="12" r="12" fill="#fff" stroke="#e5cbd4"/><text x="256" y="16" text-anchor="middle" fill="#9b8690" font-size="11">3</text><text x="277" y="16" class="muted" font-size="12">CONFIRM</text>
+    </g>
+    <path d="M112 386h1216" stroke="#f1e4e6"/>
+    <!-- Calendar area -->
+    <text x="112" y="428" class="label berryText">CHOOSE A DATE</text>
+    <text x="112" y="454" class="muted" font-size="13">Times are shown in your local time.</text>
+    <rect x="105" y="476" width="510" height="335" rx="18" fill="#fffdfc" stroke="#f0e3e4"/>
+    <g>
+      <path d="M135 511l-7 7 7 7" fill="none" stroke="#74113d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="360" y="522" text-anchor="middle" class="serif ink" font-size="20">October 2026</text>
+      <path d="M585 511l7 7-7 7" fill="none" stroke="#74113d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M125 542h470" stroke="#f2e7e8"/>
+      <g class="sans muted" font-size="11" text-anchor="middle" font-weight="700">
+        <text x="149" y="568">SUN</text><text x="215" y="568">MON</text><text x="281" y="568">TUE</text><text x="347" y="568">WED</text><text x="413" y="568">THU</text><text x="479" y="568">FRI</text><text x="545" y="568">SAT</text>
+      </g>
+      <g class="sans" font-size="13" text-anchor="middle">
+        <text x="413" y="606" fill="#372132">1</text><text x="479" y="606" fill="#372132">2</text><text x="545" y="606" fill="#372132">3</text>
+        <text x="149" y="651" fill="#372132">4</text><text x="215" y="651" fill="#372132">5</text><text x="281" y="651" fill="#372132">6</text><text x="347" y="651" fill="#372132">7</text><text x="413" y="651" fill="#372132">8</text><text x="479" y="651" fill="#372132">9</text><text x="545" y="651" fill="#372132">10</text>
+        <text x="149" y="696" fill="#372132">11</text><text x="215" y="696" fill="#372132">12</text><text x="281" y="696" fill="#372132">13</text><text x="347" y="696" fill="#372132">14</text><text x="413" y="696" fill="#372132">15</text>
+        <circle cx="479" cy="691" r="19" fill="url(#berry)"/><text x="479" y="696" fill="#fff" font-weight="700">16</text><text x="545" y="696" fill="#372132">17</text>
+        <text x="149" y="741" fill="#372132">18</text><text x="215" y="741" fill="#372132">19</text><text x="281" y="741" fill="#372132">20</text><text x="347" y="741" fill="#372132">21</text><text x="413" y="741" fill="#372132">22</text><text x="479" y="741" fill="#372132">23</text><text x="545" y="741" fill="#372132">24</text>
+        <text x="149" y="786" fill="#372132">25</text><text x="215" y="786" fill="#372132">26</text><text x="281" y="786" fill="#372132">27</text><text x="347" y="786" fill="#372132">28</text><text x="413" y="786" fill="#372132">29</text><text x="479" y="786" fill="#372132">30</text><text x="545" y="786" fill="#372132">31</text>
+      </g>
+      <g fill="#d94f82"><circle cx="479" cy="712" r="2.5"/><circle cx="281" cy="712" r="2.5"/><circle cx="413" cy="757" r="2.5"/><circle cx="545" cy="757" r="2.5"/></g>
+    </g>
+    <!-- Times area -->
+    <text x="674" y="428" class="label berryText">AVAILABLE TIMES</text>
+    <text x="674" y="454" class="ink" font-size="14" font-weight="700">Friday, 16 October 2026</text>
+    <text x="1328" y="454" text-anchor="end" fill="#a06c83" font-size="12">South Africa Standard Time</text>
+    <g font-size="14" text-anchor="middle" class="sans">
+      <rect x="674" y="478" width="192" height="50" rx="13" fill="url(#berry)"/><text x="770" y="509" fill="#fff" font-weight="700">09:00 AM</text>
+      <rect x="878" y="478" width="192" height="50" rx="13" fill="url(#berry)"/><text x="974" y="509" fill="#fff" font-weight="700">09:30 AM</text>
+      <rect x="1082" y="478" width="192" height="50" rx="13" fill="#f1eff0" stroke="#e9e4e6"/><text x="1178" y="499" fill="#9c9498">10:00 AM</text><text x="1178" y="516" fill="#a9a0a4" font-size="11">Booked</text>
+      <rect x="674" y="542" width="192" height="50" rx="13" fill="url(#berry)"/><text x="770" y="573" fill="#fff" font-weight="700">10:30 AM</text>
+      <rect x="878" y="542" width="192" height="50" rx="13" fill="url(#berry)"/><text x="974" y="573" fill="#fff" font-weight="700">11:00 AM</text>
+      <rect x="1082" y="542" width="192" height="50" rx="13" fill="#f1eff0" stroke="#e9e4e6"/><text x="1178" y="563" fill="#9c9498">11:30 AM</text><text x="1178" y="580" fill="#a9a0a4" font-size="11">Booked</text>
+      <rect x="674" y="606" width="192" height="50" rx="13" fill="url(#berry)"/><text x="770" y="637" fill="#fff" font-weight="700">12:00 PM</text>
+      <rect x="878" y="606" width="192" height="50" rx="13" fill="#f1eff0" stroke="#e9e4e6"/><text x="974" y="627" fill="#9c9498">12:30 PM</text><text x="974" y="644" fill="#a9a0a4" font-size="11">Booked</text>
+      <rect x="1082" y="606" width="192" height="50" rx="13" fill="#f1eff0" stroke="#e9e4e6"/><text x="1178" y="627" fill="#9c9498">01:00 PM</text><text x="1178" y="644" fill="#a9a0a4" font-size="11">Booked</text>
+      <rect x="674" y="670" width="192" height="50" rx="13" fill="#f1eff0" stroke="#e9e4e6"/><text x="770" y="691" fill="#9c9498">01:30 PM</text><text x="770" y="708" fill="#a9a0a4" font-size="11">Booked</text>
+      <rect x="878" y="670" width="192" height="50" rx="13" fill="url(#berry)"/><text x="974" y="701" fill="#fff" font-weight="700">02:00 PM</text>
+      <rect x="1082" y="670" width="192" height="50" rx="13" fill="url(#berry)"/><text x="1178" y="701" fill="#fff" font-weight="700">02:30 PM</text>
+      <rect x="674" y="734" width="192" height="50" rx="13" fill="url(#berry)"/><text x="770" y="765" fill="#fff" font-weight="700">03:00 PM</text>
+      <rect x="878" y="734" width="192" height="50" rx="13" fill="#f1eff0" stroke="#e9e4e6"/><text x="974" y="755" fill="#9c9498">03:30 PM</text><text x="974" y="772" fill="#a9a0a4" font-size="11">Booked</text>
+      <rect x="1082" y="734" width="192" height="50" rx="13" fill="url(#berry)"/><text x="1178" y="765" fill="#fff" font-weight="700">04:00 PM</text>
+    </g>
+    <rect x="674" y="806" width="600" height="48" rx="24" fill="url(#berry)"/><text x="974" y="836" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Continue with selected time  →</text>
+    <g transform="translate(108 831)"><circle cx="0" cy="0" r="10" fill="#f9e8ec"/><text x="0" y="4" text-anchor="middle" fill="#8b1747" font-size="13" font-weight="700">i</text><text x="18" y="4" class="muted" font-size="12">Availability can change until your booking is confirmed.</text></g>
+  </g>
+  <!-- States strip -->
+  <text x="82" y="933" class="serif ink" font-size="26">Thoughtful at every step</text>
+  <text x="82" y="958" class="sans muted" font-size="14">The interface stays calm and clear while availability loads, changes, or is confirmed.</text>
+  <!-- Loading state -->
+  <g filter="url(#shadow)"><rect x="72" y="987" width="410" height="195" rx="22" fill="#fff" stroke="#f1e2e4"/></g>
+  <g class="sans" text-anchor="middle">
+    <text x="277" y="1023" class="label berryText">LOADING</text>
+    <circle cx="277" cy="1082" r="25" fill="none" stroke="#f4dfe5" stroke-width="5"/><path d="M277 1057a25 25 0 0 1 24 18" fill="none" stroke="#a02c5c" stroke-width="5" stroke-linecap="round"/>
+    <text x="277" y="1135" class="serif ink" font-size="19">Checking availability…</text><text x="277" y="1158" class="muted" font-size="12">This won't take long.</text>
+  </g>
+  <!-- Empty state -->
+  <g filter="url(#shadow)"><rect x="515" y="987" width="410" height="195" rx="22" fill="#fff" stroke="#f1e2e4"/></g>
+  <g class="sans" text-anchor="middle">
+    <text x="720" y="1023" class="label berryText">NO TIMES AVAILABLE</text>
+    <rect x="700" y="1040" width="40" height="38" rx="6" fill="none" stroke="#8b1747" stroke-width="1.7"/><path d="M700 1050h40m-29-14v9m18-9v9M727 1077l9 9m0-9-9 9" fill="none" stroke="#8b1747" stroke-width="1.7" stroke-linecap="round"/>
+    <text x="720" y="1111" class="serif ink" font-size="19">A little date change?</text><text x="720" y="1134" class="muted" font-size="12">Try another day to find a time that works.</text>
+    <rect x="621" y="1148" width="198" height="25" rx="12" fill="#fff" stroke="#9b1749"/><text x="720" y="1165" fill="#74113d" font-size="11" font-weight="700">Choose another date</text>
+  </g>
+  <!-- Selection state -->
+  <g filter="url(#shadow)"><rect x="958" y="987" width="410" height="195" rx="22" fill="#fff" stroke="#f1e2e4"/></g>
+  <g class="sans" text-anchor="middle">
+    <text x="1163" y="1023" class="label berryText">TIME SELECTED</text>
+    <rect x="1010" y="1040" width="306" height="72" rx="14" fill="url(#pinkwash)"/>
+    <circle cx="1163" cy="1062" r="12" fill="url(#berry)"/><path d="m1158 1062 4 4 7-8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1163" y="1092" class="serif ink" font-size="18">Friday, 16 October · 02:00 PM</text>
+    <rect x="1010" y="1123" width="306" height="34" rx="17" fill="url(#berry)"/><text x="1163" y="1145" fill="#fff" font-size="12" font-weight="700">Continue to your details</text>
+    <text x="1163" y="1172" class="muted" font-size="11">You can change your time before confirming.</text>
+  </g>
+  <text x="720" y="1225" text-anchor="middle" class="sans" fill="#a37e8d" font-size="11" letter-spacing="2">HAIRBYSENTLE  ·  BEAUTY, MADE PERSONAL</text>
+</svg>
