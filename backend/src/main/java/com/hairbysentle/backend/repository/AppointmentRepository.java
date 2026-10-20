@@ -9,4 +9,8 @@ import com.hairbysentle.backend.model.Appointment;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
     List<Appointment> findByEmailOrderByCreatedAtDesc(String email);
+
+    List<Appointment> findByDateOrderByTimeAsc(java.time.LocalDate date);
+
+    boolean existsByDateAndTime(java.time.LocalDate date, java.time.LocalTime time);
 }
