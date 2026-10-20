@@ -96,7 +96,7 @@ The application is structured as a static frontend and a separately runnable Spr
 
 ## WeThinkCode_ Cloud Computing proof of work
 
-Verification code: **WTC-XW3GPAPC**
+Verification code: **WTC-GZ9Q3H8B**
 
 ## Developer
 
