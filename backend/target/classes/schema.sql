@@ -67,3 +67,6 @@ CREATE TABLE IF NOT EXISTS appointments (
     status                    TEXT NOT NULL DEFAULT 'PENDING',
     created_at                TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_appointments_date_time
+    ON appointments(date, time);
