@@ -1,6 +1,10 @@
 package com.hairbysentle.backend.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -10,6 +14,10 @@ import com.hairbysentle.backend.repository.AppointmentRepository;
 
 @Service
 public class AppointmentService {
+
+    private static final LocalTime OPENING_TIME = LocalTime.of(9, 0);
+    private static final LocalTime CLOSING_TIME = LocalTime.of(17, 0);
+    private static final int SLOT_MINUTES = 30;
 
     private final AppointmentRepository appointmentRepository;
     private final EmailSender emailSender;
@@ -42,6 +50,15 @@ public class AppointmentService {
         if (request.time == null) {
             throw new IllegalArgumentException("Appointment time is required");
         }
+        if (request.date.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Appointment date must be today or later");
+        }
+        if (!isWorkingDay(request.date) || !isValidSlot(request.time)) {
+            throw new IllegalArgumentException("Please choose one of the available appointment times");
+        }
+        if (appointmentRepository.existsByDateAndTime(request.date, request.time)) {
+            throw new IllegalArgumentException("That appointment time has just been booked. Please choose another time.");
+        }
 
         Appointment appointment = new Appointment();
         appointment.setCustomerName(request.customerName.trim());
@@ -67,5 +84,31 @@ public class AppointmentService {
         emailSender.sendBookingConfirmation(appointment.getEmail(), bookingDetails);
         whatsAppSender.sendAppointmentNotification(appointment);
         return appointment;
+    }
+
+    public List<AvailabilitySlot> getAvailability(LocalDate date) {
+        if (date == null || date.isBefore(LocalDate.now()) || !isWorkingDay(date)) {
+            return List.of();
+        }
+
+        List<AvailabilitySlot> slots = new ArrayList<>();
+        for (LocalTime time = OPENING_TIME; time.isBefore(CLOSING_TIME); time = time.plusMinutes(SLOT_MINUTES)) {
+            slots.add(new AvailabilitySlot(time, !appointmentRepository.existsByDateAndTime(date, time)));
+        }
+        return slots;
+    }
+
+    private boolean isWorkingDay(LocalDate date) {
+        return date.getDayOfWeek().getValue() >= 2 && date.getDayOfWeek().getValue() <= 6;
+    }
+
+    private boolean isValidSlot(LocalTime time) {
+        if (time.isBefore(OPENING_TIME) || !time.isBefore(CLOSING_TIME)) {
+            return false;
+        }
+        return time.getMinute() % SLOT_MINUTES == 0 && time.getSecond() == 0 && time.getNano() == 0;
+    }
+
+    public record AvailabilitySlot(LocalTime time, boolean available) {
     }
 }
